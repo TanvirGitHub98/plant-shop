@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-export default function NotFound() {
+const NotFound=()=> {
   return (
     <section
       className="page-hero"
@@ -15,3 +15,4 @@ export default function NotFound() {
     </section>
   );
 }
+export default NotFound; 

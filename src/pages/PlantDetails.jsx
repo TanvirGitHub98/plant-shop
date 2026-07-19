@@ -4,7 +4,7 @@ import { Star, PackageCheck, Leaf, ShieldCheck } from "lucide-react";
 import ProtectedRoute from "../Routes/ProtectedRoute/ProtectedRoute";
 import "./PlantDetails.css";
 import { AuthContext } from "../context/AuthContext";
-export default function PlantDetails() {
+const PlantDetails=()=> {
   return (
     <ProtectedRoute>
       <Details />
@@ -94,3 +94,4 @@ function Details() {
     </div>
   );
 }
+export default PlantDetails;

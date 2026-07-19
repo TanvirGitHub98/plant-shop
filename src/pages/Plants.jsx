@@ -1,5 +1,5 @@
 import PlantGrid from "../components/PlantGrid/PlantGrid";
-export default function Plants() {
+const Plants=()=> {
   return (
     <>
       <section className="page-hero">
@@ -16,3 +16,4 @@ export default function Plants() {
     </>
   );
 }
+export default Plants;

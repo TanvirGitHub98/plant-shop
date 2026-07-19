@@ -3,14 +3,14 @@ import { Mail, UserRound, Camera } from "lucide-react";
 import ProtectedRoute from "../Routes/ProtectedRoute/ProtectedRoute";
 import { AuthContext } from "../context/AuthContext";
 import "./Profile.css";
-export default function Profile() {
+ const Profile=()=> {
   return (
     <ProtectedRoute>
       <ProfileContent />
     </ProtectedRoute>
   );
 }
-function ProfileContent() {
+const ProfileContent=()=> {
   const { user, updateUser } = use(AuthContext);
   const [n, setN] = useState(user?.displayName || ""),
     [photo, setPhoto] = useState(user?.photoURL || ""),
@@ -109,3 +109,4 @@ function ProfileContent() {
     </div>
   );
 }
+export default Profile

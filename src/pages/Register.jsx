@@ -3,7 +3,7 @@ import { use, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
 import "../components/AuthForm/AuthForm.css";
-export default function Register() {
+ const Register=()=> {
   const { register, googleLogin } = use(AuthContext);
   const [n, setN] = useState(""),
     [e, setE] = useState(""),
@@ -108,3 +108,4 @@ export default function Register() {
     </div>
   );
 }
+export default Register;
