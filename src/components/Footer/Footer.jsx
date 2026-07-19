@@ -26,7 +26,7 @@ const Footer=()=> {
         </div>
       </div>
       <div className="container copyright">
-        © 2025 GreenNest. All rights reserved.
+        © 2026 GreenNest. All rights reserved.
       </div>
     </footer>
   );
