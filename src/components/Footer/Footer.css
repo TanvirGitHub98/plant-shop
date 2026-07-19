@@ -1,1 +1,76 @@
-.footer{background:var(--forest);color:#e8efe9;padding:64px 0 24px}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:50px}.footer-logo{font-family:Georgia,serif;font-size:1.5rem;font-weight:bold;color:white;display:flex;gap:9px;align-items:center}.footer p{max-width:330px;color:#b9c9be;line-height:1.7}.footer h4{color:white;margin:4px 0 18px}.footer-grid>div:not(:first-child){display:flex;flex-direction:column;gap:12px}.footer a{color:#c9d6cd;font-size:.92rem}.socials{display:flex!important;flex-direction:row!important}.socials a{width:38px;height:38px;border:1px solid #577364;border-radius:50%;display:grid;place-items:center}.socials svg{width:17px}.pin{font-family:Georgia,serif;font-size:1.2rem!important}.copyright{border-top:1px solid #3c5a49;margin-top:50px;padding-top:22px;color:#9eb2a4;font-size:.85rem}@media(max-width:750px){.footer-grid{grid-template-columns:1fr 1fr}.footer-grid>div:first-child{grid-column:1/-1}}@media(max-width:450px){.footer-grid{grid-template-columns:1fr}}
+.footer {
+  background: var(--forest);
+  color: #e8efe9;
+  padding: 64px 0 24px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.2fr;
+  gap: 50px;
+}
+.footer-logo {
+  font-family: Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  gap: 9px;
+  align-items: center;
+}
+.footer p {
+  max-width: 330px;
+  color: #b9c9be;
+  line-height: 1.7;
+}
+.footer h4 {
+  color: white;
+  margin: 4px 0 18px;
+}
+.footer-grid > div:not(:first-child) {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.footer a {
+  color: #c9d6cd;
+  font-size: 0.92rem;
+}
+.socials {
+  display: flex !important;
+  flex-direction: row !important;
+}
+.socials a {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #577364;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+.socials svg {
+  width: 17px;
+}
+.pin {
+  font-family: Georgia, serif;
+  font-size: 1.2rem !important;
+}
+.copyright {
+  border-top: 1px solid #3c5a49;
+  margin-top: 50px;
+  padding-top: 22px;
+  color: #9eb2a4;
+  font-size: 0.85rem;
+}
+@media (max-width: 750px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-grid > div:first-child {
+    grid-column: 1/-1;
+  }
+}
+@media (max-width: 450px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}

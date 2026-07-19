@@ -3,7 +3,7 @@ import { Leaf, Menu, X, ChevronDown } from "lucide-react";
 import {  use, useContext, useState } from "react";
 import "./Navbar.css";
 import { AuthContext } from "../../context/AuthContext";
-export default function Navbar() {
+const Navbar=()=> {
   const { user, logout } = use(AuthContext)
   const [open, setOpen] = useState(false),
     [drop, setDrop] = useState(false);
@@ -67,3 +67,4 @@ export default function Navbar() {
     </header>
   );
 }
+export default Navbar;

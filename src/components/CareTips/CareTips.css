@@ -1,1 +1,80 @@
-.care{background:var(--forest);color:white}.care .container{display:grid;grid-template-columns:.7fr 1.3fr;gap:70px;align-items:start}.care .eyebrow{color:#a9c8af}.care-heading{position:sticky;top:130px}.tips{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.tips article{min-height:295px;background:#254c39;border:1px solid #3c614d;border-radius:18px;padding:25px;display:flex;flex-direction:column}.tip-num{color:#8daa96;font-size:.76rem;letter-spacing:.1em}.tip-icon{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#dce9d9;color:var(--forest);margin:35px 0 20px}.tips h3{font:500 1.35rem Georgia,serif;margin:0 0 10px}.tips p{color:#bdd0c2;font-size:.9rem;line-height:1.65;margin:0}@media(max-width:950px){.care .container{grid-template-columns:1fr}.care-heading{position:static}.tips{grid-template-columns:1fr 1fr 1fr}}@media(max-width:700px){.tips{grid-template-columns:1fr}.tips article{min-height:240px}.tip-icon{margin:22px 0 15px}}
+.care {
+  background: var(--forest);
+  color: white;
+}
+.care .container {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: 70px;
+  align-items: start;
+}
+.care .eyebrow {
+  color: #a9c8af;
+}
+.care-heading {
+  position: sticky;
+  top: 130px;
+}
+.tips {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.tips article {
+  min-height: 295px;
+  background: #254c39;
+  border: 1px solid #3c614d;
+  border-radius: 18px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+}
+.tip-num {
+  color: #8daa96;
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+}
+.tip-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #dce9d9;
+  color: var(--forest);
+  margin: 35px 0 20px;
+}
+.tips h3 {
+  font:
+    500 1.35rem Georgia,
+    serif;
+  margin: 0 0 10px;
+}
+.tips p {
+  color: #bdd0c2;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  margin: 0;
+}
+@media (max-width: 950px) {
+  .care .container {
+    grid-template-columns: 1fr;
+  }
+  .care-heading {
+    position: static;
+  }
+  .tips {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media (max-width: 700px) {
+  .tips {
+    grid-template-columns: 1fr;
+  }
+  .tips article {
+    min-height: 240px;
+  }
+  .tip-icon {
+    margin: 22px 0 15px;
+  }
+}

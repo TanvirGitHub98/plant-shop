@@ -22,7 +22,7 @@ const slides = [
     img: "https://images.unsplash.com/photo-1600411832986-5a4477b64a1c?auto=format&fit=crop&w=1400&q=90",
   },
 ];
-export default function Hero() {
+const Hero=()=> {
   const [i, setI] = useState(0);
   useEffect(() => {
     const t = setInterval(() => setI((v) => (v + 1) % 3), 6000);
@@ -77,3 +77,4 @@ export default function Hero() {
     </section>
   );
 }
+export default Hero;
