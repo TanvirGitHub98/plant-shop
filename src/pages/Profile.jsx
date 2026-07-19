@@ -10,19 +10,10 @@ import {
   Camera,
 } from "lucide-react";
 
-import ProtectedRoute from "../Routes/ProtectedRoute/ProtectedRoute";
 import { AuthContext } from "../context/AuthContext";
 import "./Profile.css";
 
 const Profile = () => {
-  return (
-    <ProtectedRoute>
-      <ProfileContent />
-    </ProtectedRoute>
-  );
-};
-
-const ProfileContent = () => {
   const {
     user,
     setUser,
@@ -74,8 +65,8 @@ const ProfileContent = () => {
 
       setUser({
         ...user,
-        displayName: displayName,
-        photoURL: photoURL,
+        displayName,
+        photoURL,
       });
 
       setIsEditing(false);
@@ -174,8 +165,10 @@ const ProfileContent = () => {
 
           {isEditing ? (
             <form
-              onSubmit={handleUpdateProfile}
               className="profile-form"
+              onSubmit={
+                handleUpdateProfile
+              }
             >
               <label htmlFor="displayName">
                 Display name
@@ -240,7 +233,9 @@ const ProfileContent = () => {
                 <UserRound />
 
                 <span>
-                  <small>Full name</small>
+                  <small>
+                    Full name
+                  </small>
 
                   <b>
                     {user?.displayName ||
