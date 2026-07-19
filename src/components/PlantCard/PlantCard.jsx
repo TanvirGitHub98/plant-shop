@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Star, ArrowUpRight } from "lucide-react";
 import "./PlantCard.css";
-export default function PlantCard({ p }) {
+const PlantCard=({ p })=> {
   return (
     <article className="plant-card">
       <div className="card-img">
@@ -26,3 +26,4 @@ export default function PlantCard({ p }) {
     </article>
   );
 }
+export default PlantCard;
