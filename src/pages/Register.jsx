@@ -1,111 +1,292 @@
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { use, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+
 import { AuthContext } from "../context/AuthContext";
 import "../components/AuthForm/AuthForm.css";
- const Register=()=> {
-  const { register, googleLogin } = use(AuthContext);
-  const [n, setN] = useState(""),
-    [e, setE] = useState(""),
-    [photo, setPhoto] = useState(""),
-    [p, setP] = useState(""),
-    [show, setShow] = useState(false),
-    [err, setErr] = useState("");
-  const nav = useNavigate();
-  const valid = () =>
-    p.length < 6
-      ? "Password must be at least 6 characters."
-      : !/[A-Z]/.test(p)
-        ? "Password must contain an uppercase letter."
-        : !/[a-z]/.test(p)
-          ? "Password must contain a lowercase letter."
-          : "";
-  const submit = async (x) => {
-    x.preventDefault();
-    const m = valid();
-    if (m) return setErr(m);
+
+const Register = () => {
+  const {
+    createUser,
+    googleSignIn,
+    updateUserProfile,
+    setUser,
+    loading,
+  } = useContext(AuthContext);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [photoURL, setPhotoURL] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const navigate = useNavigate();
+
+  const validatePassword = () => {
+    if (password.length < 6) {
+      return "Password must be at least 6 characters.";
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      return "Password must contain at least one uppercase letter.";
+    }
+
+    if (!/[a-z]/.test(password)) {
+      return "Password must contain at least one lowercase letter.";
+    }
+
+    return "";
+  };
+
+  const handleRegister = async (event) => {
+    event.preventDefault();
+    setErrorMessage("");
+
+    const passwordValidationError = validatePassword();
+
+    if (passwordValidationError) {
+      setErrorMessage(passwordValidationError);
+      return;
+    }
+
     try {
-      await register(n, e, p, photo);
-      nav("/");
-    } catch {
-      setErr("Registration failed. This email may already be in use.");
+      const userCredential = await createUser(
+        email,
+        password,
+      );
+
+      await updateUserProfile(
+        name,
+        photoURL,
+      );
+
+      setUser({
+        ...userCredential.user,
+        displayName: name,
+        photoURL: photoURL,
+      });
+
+      navigate("/");
+    } catch (error) {
+      console.error(
+        "Registration error:",
+        error.code,
+        error.message,
+      );
+
+      if (error.code === "auth/email-already-in-use") {
+        setErrorMessage(
+          "This email address is already registered.",
+        );
+      } else if (error.code === "auth/invalid-email") {
+        setErrorMessage(
+          "Please enter a valid email address.",
+        );
+      } else if (error.code === "auth/weak-password") {
+        setErrorMessage(
+          "Please enter a stronger password.",
+        );
+      } else if (error.code === "auth/network-request-failed") {
+        setErrorMessage(
+          "Network error. Please check your internet connection.",
+        );
+      } else {
+        setErrorMessage(
+          "Registration failed. Please try again.",
+        );
+      }
     }
   };
+
+  const handleGoogleSignIn = async () => {
+    setErrorMessage("");
+
+    try {
+      await googleSignIn();
+      navigate("/");
+    } catch (error) {
+      console.error(
+        "Google sign-in error:",
+        error.code,
+        error.message,
+      );
+
+      if (error.code === "auth/popup-closed-by-user") {
+        setErrorMessage(
+          "Google sign-in was cancelled.",
+        );
+      } else if (
+        error.code === "auth/popup-blocked"
+      ) {
+        setErrorMessage(
+          "Google popup was blocked by the browser.",
+        );
+      } else {
+        setErrorMessage(
+          "Google sign-in could not be completed.",
+        );
+      }
+    }
+  };
+
   return (
     <div className="auth-page">
       <div className="auth-visual">
-        <h2>Begin your greener, calmer home.</h2>
+        <h2>
+          Begin your greener, calmer home.
+        </h2>
       </div>
+
       <div className="auth-panel">
         <div className="auth-box">
-          <span className="eyebrow">Join our community</span>
+          <span className="eyebrow">
+            Join our community
+          </span>
+
           <h1>Sign up</h1>
-          {err && <div className="error">{err}</div>}
-          <form onSubmit={submit}>
+
+          <p className="auth-sub">
+            Create your GreenNest account.
+          </p>
+
+          {errorMessage && (
+            <div className="error">
+              {errorMessage}
+            </div>
+          )}
+
+          <form onSubmit={handleRegister}>
             <div className="field">
-              <label>Name</label>
+              <label htmlFor="name">
+                Name
+              </label>
+
               <input
+                id="name"
+                type="text"
                 required
-                value={n}
-                onChange={(x) => setN(x.target.value)}
+                value={name}
+                placeholder="Enter your full name"
+                onChange={(event) =>
+                  setName(event.target.value)
+                }
               />
             </div>
+
             <div className="field">
-              <label>Email</label>
+              <label htmlFor="email">
+                Email
+              </label>
+
               <input
+                id="email"
                 type="email"
                 required
-                value={e}
-                onChange={(x) => setE(x.target.value)}
+                value={email}
+                placeholder="you@example.com"
+                onChange={(event) =>
+                  setEmail(event.target.value)
+                }
               />
             </div>
+
             <div className="field">
-              <label>Photo URL</label>
+              <label htmlFor="photoURL">
+                Photo URL
+              </label>
+
               <input
+                id="photoURL"
                 type="url"
                 required
-                value={photo}
-                onChange={(x) => setPhoto(x.target.value)}
+                value={photoURL}
+                placeholder="https://example.com/photo.jpg"
+                onChange={(event) =>
+                  setPhotoURL(event.target.value)
+                }
               />
             </div>
+
             <div className="field">
-              <label>Password</label>
+              <label htmlFor="password">
+                Password
+              </label>
+
               <div className="input-wrap">
                 <input
-                  type={show ? "text" : "password"}
+                  id="password"
+                  type={
+                    showPassword
+                      ? "text"
+                      : "password"
+                  }
                   required
-                  value={p}
-                  onChange={(x) => setP(x.target.value)}
+                  value={password}
+                  placeholder="Minimum 6 characters"
+                  onChange={(event) =>
+                    setPassword(event.target.value)
+                  }
                 />
+
                 <button
                   type="button"
                   className="toggle"
-                  onClick={() => setShow(!show)}
+                  aria-label={
+                    showPassword
+                      ? "Hide password"
+                      : "Show password"
+                  }
+                  onClick={() =>
+                    setShowPassword(
+                      !showPassword,
+                    )
+                  }
                 >
-                  {show ? <EyeOff size={18} /> : <Eye size={18} />}
+                  {showPassword ? (
+                    <EyeOff size={18} />
+                  ) : (
+                    <Eye size={18} />
+                  )}
                 </button>
               </div>
             </div>
-            <button className="btn btn-primary auth-submit">
-              Create account
+
+            <button
+              type="submit"
+              className="btn btn-primary auth-submit"
+              disabled={loading}
+            >
+              {loading
+                ? "Creating account..."
+                : "Create account"}
             </button>
           </form>
-          <div className="divider">OR</div>
+
+          <div className="divider">
+            OR
+          </div>
+
           <button
+            type="button"
             className="google-btn"
-            onClick={async () => {
-              await googleLogin();
-              nav("/");
-            }}
+            disabled={loading}
+            onClick={handleGoogleSignIn}
           >
             G &nbsp; Continue with Google
           </button>
+
           <p className="switch">
-            Already registered? <Link to="/login">Login</Link>
+            Already registered?{" "}
+            <Link to="/login">
+              Login
+            </Link>
           </p>
         </div>
       </div>
     </div>
   );
-}
+};
+
 export default Register;

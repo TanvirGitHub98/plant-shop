@@ -24,14 +24,6 @@ const Footer=()=> {
           <a href="#">Privacy Policy</a>
           <a href="#">FAQs</a>
         </div>
-        <div>
-          <h4>Stay connected</h4>
-          <div className="socials">
-            <a href="#">IG</a>
-            <a href="#">f</a>
-            <a href="#">P</a>
-          </div>
-        </div>
       </div>
       <div className="container copyright">
         © 2025 GreenNest. All rights reserved.
