@@ -77,4 +77,4 @@ const PlantGrid=({ limit, title, subtitle })=> {
     </section>
   );
 }
-export default PlantGrid
+export default PlantGrid;

@@ -5,7 +5,7 @@ import Experts from "../components/Experts/Experts";
 import PlantOfWeek from "../components/PlantOfWeek/PlantOfWeek";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
-export default function Home() {
+const Home=()=> {
   return (
     <>
       <Hero />
@@ -20,3 +20,4 @@ export default function Home() {
     </>
   );
 }
+export default Home;

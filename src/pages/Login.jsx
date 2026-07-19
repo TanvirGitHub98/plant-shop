@@ -3,7 +3,7 @@ import { use, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
 import "../components/AuthForm/AuthForm.css";
-export default function Login() {
+const Login=()=> {
   const { login, googleLogin, resetPassword } = use(AuthContext);
   const [e, setE] = useState(""),
     [p, setP] = useState(""),
@@ -100,3 +100,5 @@ export default function Login() {
     </div>
   );
 }
+
+export default Login;
