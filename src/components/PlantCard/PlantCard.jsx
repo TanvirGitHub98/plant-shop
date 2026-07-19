@@ -17,7 +17,7 @@ const PlantCard=({ p })=> {
         </div>
         <h3>{p.plantName}</h3>
         <div className="card-bottom">
-          <strong>${p.price}.00</strong>
+          <strong>BDT-{p.price}.00</strong>
           <Link to={`/plant/${p.plantId}`}>
             <ArrowUpRight />
           </Link>

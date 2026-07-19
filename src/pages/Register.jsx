@@ -1,6 +1,17 @@
-import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react";
+import {
+  useContext,
+  useState,
+} from "react";
+
+import {
+  Link,
+  useNavigate,
+} from "react-router-dom";
+
+import {
+  Eye,
+  EyeOff,
+} from "lucide-react";
 
 import { AuthContext } from "../context/AuthContext";
 import "../components/AuthForm/AuthForm.css";
@@ -12,15 +23,30 @@ const Register = () => {
     updateUserProfile,
     setUser,
     loading,
+    setLoading,
   } = useContext(AuthContext);
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [photoURL, setPhotoURL] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] =
+    useState("");
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [email, setEmail] =
+    useState("");
+
+  const [photoURL, setPhotoURL] =
+    useState("");
+
+  const [password, setPassword] =
+    useState("");
+
+  const [
+    showPassword,
+    setShowPassword,
+  ] = useState(false);
+
+  const [
+    errorMessage,
+    setErrorMessage,
+  ] = useState("");
 
   const navigate = useNavigate();
 
@@ -40,22 +66,30 @@ const Register = () => {
     return "";
   };
 
-  const handleRegister = async (event) => {
+  const handleRegister = async (
+    event,
+  ) => {
     event.preventDefault();
+
     setErrorMessage("");
 
-    const passwordValidationError = validatePassword();
+    const passwordValidationError =
+      validatePassword();
 
     if (passwordValidationError) {
-      setErrorMessage(passwordValidationError);
+      setErrorMessage(
+        passwordValidationError,
+      );
+
       return;
     }
 
     try {
-      const userCredential = await createUser(
-        email,
-        password,
-      );
+      const userCredential =
+        await createUser(
+          email,
+          password,
+        );
 
       await updateUserProfile(
         name,
@@ -76,19 +110,31 @@ const Register = () => {
         error.message,
       );
 
-      if (error.code === "auth/email-already-in-use") {
+      if (
+        error.code ===
+        "auth/email-already-in-use"
+      ) {
         setErrorMessage(
           "This email address is already registered.",
         );
-      } else if (error.code === "auth/invalid-email") {
+      } else if (
+        error.code ===
+        "auth/invalid-email"
+      ) {
         setErrorMessage(
           "Please enter a valid email address.",
         );
-      } else if (error.code === "auth/weak-password") {
+      } else if (
+        error.code ===
+        "auth/weak-password"
+      ) {
         setErrorMessage(
           "Please enter a stronger password.",
         );
-      } else if (error.code === "auth/network-request-failed") {
+      } else if (
+        error.code ===
+        "auth/network-request-failed"
+      ) {
         setErrorMessage(
           "Network error. Please check your internet connection.",
         );
@@ -97,45 +143,63 @@ const Register = () => {
           "Registration failed. Please try again.",
         );
       }
+
+      setLoading(false);
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    setErrorMessage("");
+  const handleGoogleSignIn =
+    async () => {
+      setErrorMessage("");
 
-    try {
-      await googleSignIn();
-      navigate("/");
-    } catch (error) {
-      console.error(
-        "Google sign-in error:",
-        error.code,
-        error.message,
-      );
+      try {
+        await googleSignIn();
 
-      if (error.code === "auth/popup-closed-by-user") {
-        setErrorMessage(
-          "Google sign-in was cancelled.",
+        navigate("/");
+      } catch (error) {
+        console.error(
+          "Google sign-in error:",
+          error.code,
+          error.message,
         );
-      } else if (
-        error.code === "auth/popup-blocked"
-      ) {
-        setErrorMessage(
-          "Google popup was blocked by the browser.",
-        );
-      } else {
-        setErrorMessage(
-          "Google sign-in could not be completed.",
-        );
+
+        if (
+          error.code ===
+          "auth/popup-closed-by-user"
+        ) {
+          setErrorMessage(
+            "Google sign-in was cancelled.",
+          );
+        } else if (
+          error.code ===
+          "auth/popup-blocked"
+        ) {
+          setErrorMessage(
+            "Google popup was blocked by the browser.",
+          );
+        } else if (
+          error.code ===
+          "auth/network-request-failed"
+        ) {
+          setErrorMessage(
+            "Network error. Please check your internet connection.",
+          );
+        } else {
+          setErrorMessage(
+            "Google sign-in could not be completed.",
+          );
+        }
+
+        setLoading(false);
       }
-    }
-  };
+    };
 
   return (
     <div className="auth-page">
       <div className="auth-visual">
         <h2>
-          Begin your greener, calmer home.
+          Begin your greener, calmer
+          home.
         </h2>
       </div>
 
@@ -148,7 +212,8 @@ const Register = () => {
           <h1>Sign up</h1>
 
           <p className="auth-sub">
-            Create your GreenNest account.
+            Create your GreenNest
+            account.
           </p>
 
           {errorMessage && (
@@ -157,7 +222,9 @@ const Register = () => {
             </div>
           )}
 
-          <form onSubmit={handleRegister}>
+          <form
+            onSubmit={handleRegister}
+          >
             <div className="field">
               <label htmlFor="name">
                 Name
@@ -170,7 +237,9 @@ const Register = () => {
                 value={name}
                 placeholder="Enter your full name"
                 onChange={(event) =>
-                  setName(event.target.value)
+                  setName(
+                    event.target.value,
+                  )
                 }
               />
             </div>
@@ -187,7 +256,9 @@ const Register = () => {
                 value={email}
                 placeholder="you@example.com"
                 onChange={(event) =>
-                  setEmail(event.target.value)
+                  setEmail(
+                    event.target.value,
+                  )
                 }
               />
             </div>
@@ -204,7 +275,9 @@ const Register = () => {
                 value={photoURL}
                 placeholder="https://example.com/photo.jpg"
                 onChange={(event) =>
-                  setPhotoURL(event.target.value)
+                  setPhotoURL(
+                    event.target.value,
+                  )
                 }
               />
             </div>
@@ -226,7 +299,9 @@ const Register = () => {
                   value={password}
                   placeholder="Minimum 6 characters"
                   onChange={(event) =>
-                    setPassword(event.target.value)
+                    setPassword(
+                      event.target.value,
+                    )
                   }
                 />
 
@@ -272,7 +347,9 @@ const Register = () => {
             type="button"
             className="google-btn"
             disabled={loading}
-            onClick={handleGoogleSignIn}
+            onClick={
+              handleGoogleSignIn
+            }
           >
             G &nbsp; Continue with Google
           </button>

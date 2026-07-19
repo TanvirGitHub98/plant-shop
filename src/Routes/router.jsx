@@ -1,7 +1,12 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Outlet,
+} from "react-router-dom";
 
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
+
+import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 
 import Home from "../pages/Home";
 import Plants from "../pages/Plants";
@@ -25,10 +30,25 @@ const RootLayout = () => {
   );
 };
 
+const plantDataLoader = async () => {
+  const response = await fetch(
+    "/plants.json",
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      "Plant data could not be loaded.",
+    );
+  }
+
+  return response.json();
+};
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+
     children: [
       {
         index: true,
@@ -40,8 +60,14 @@ const router = createBrowserRouter([
       },
       {
         path: "plant/:id",
-        element: <PlantDetails />,
-        loader:()=> fetch('/plants.json')
+
+        element: (
+          <ProtectedRoute>
+            <PlantDetails />
+          </ProtectedRoute>
+        ),
+
+        loader: plantDataLoader,
       },
       {
         path: "login",
@@ -53,7 +79,12 @@ const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: <Profile />,
+
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "*",

@@ -1,97 +1,145 @@
-import { useLoaderData, useParams } from "react-router-dom";
-import { use, useState } from "react";
-import { Star, PackageCheck, Leaf, ShieldCheck } from "lucide-react";
-import ProtectedRoute from "../Routes/ProtectedRoute/ProtectedRoute";
-import "./PlantDetails.css";
-import { AuthContext } from "../context/AuthContext";
-const PlantDetails=()=> {
-  return (
-    <ProtectedRoute>
-      <Details />
-    </ProtectedRoute>
-  );
-}
-function Details() {
+import { useContext, useState } from "react";
 
-  const plants=useLoaderData();
-  console.log(plants)  
-  const { id } = useParams(),
-    { user } = use(AuthContext),
-    p = plants.find((x) => String(x.plantId) === id);
-  const [name, setName] = useState(user?.displayName || ""),
-    [email, setEmail] = useState(user?.email || ""),
-    [toast, setToast] = useState("");
-  if (!p) return <p>Plant not found.</p>;
-  const book = (e) => {
-    e.preventDefault();
-    setToast(`Consultation booked for ${p.plantName}!`);
-    setName("");
-    setEmail("");
-    setTimeout(() => setToast(""), 3500);
+import { useLoaderData, useParams } from "react-router-dom";
+
+import { Star, PackageCheck, Leaf, ShieldCheck } from "lucide-react";
+
+import { AuthContext } from "../context/AuthContext";
+import "./PlantDetails.css";
+
+const PlantDetails = () => {
+  const plants = useLoaderData();
+  const { id } = useParams();
+
+  const { user } = useContext(AuthContext);
+
+  const selectedPlant = plants.find(
+    (plant) => String(plant.plantId) === String(id),
+  );
+
+  const [customerName, setCustomerName] = useState(user?.displayName || "");
+
+  const [customerEmail, setCustomerEmail] = useState(user?.email || "");
+
+  const [successMessage, setSuccessMessage] = useState("");
+
+  if (!selectedPlant) {
+    return (
+      <section className="page-hero">
+        <div className="container">
+          <h1 className="section-title">Plant not found</h1>
+        </div>
+      </section>
+    );
+  }
+
+  const handleBookConsultation = (event) => {
+    event.preventDefault();
+
+    setSuccessMessage(`Consultation booked for ${selectedPlant.plantName}!`);
+
+    setCustomerName("");
+    setCustomerEmail("");
+
+    setTimeout(() => {
+      setSuccessMessage("");
+    }, 3500);
   };
+
   return (
     <div className="details-page">
       <div className="container details-grid">
         <div className="details-image">
-          <img src={p.image} alt={p.plantName} />
-          <span>{p.careLevel} care</span>
+          <img src={selectedPlant.image} alt={selectedPlant.plantName} />
+
+          <span>{selectedPlant.careLevel} care</span>
         </div>
+
         <div className="details-info">
-          <span className="eyebrow">{p.category}</span>
-          <h1>{p.plantName}</h1>
+          <span className="eyebrow">{selectedPlant.category}</span>
+
+          <h1>{selectedPlant.plantName}</h1>
+
           <div className="details-rating">
-            <Star size={17} fill="currentColor" /> {p.rating} • by{" "}
-            {p.providerName}
+            <Star size={17} fill="currentColor" />
+
+            {selectedPlant.rating}
+
+            <span>•</span>
+
+            <span>by {selectedPlant.providerName}</span>
           </div>
-          <p>{p.description}</p>
+
+          <p>{selectedPlant.description}</p>
+
           <div className="price-row">
-            <strong>${p.price}.00</strong>
+            <strong>BDT-{selectedPlant.price}.00</strong>
+
             <span>
-              <PackageCheck /> {p.availableStock} plants in stock
+              <PackageCheck />
+              {selectedPlant.availableStock} plants in stock
             </span>
           </div>
+
           <div className="details-perks">
             <div>
               <Leaf />
+
               <span>
                 <b>Care level</b>
-                <small>{p.careLevel}</small>
+
+                <small>{selectedPlant.careLevel}</small>
               </span>
             </div>
+
             <div>
               <ShieldCheck />
+
               <span>
                 <b>Healthy arrival</b>
+
                 <small>Quality checked</small>
               </span>
             </div>
           </div>
-          <form onSubmit={book} className="booking">
+
+          <form className="booking" onSubmit={handleBookConsultation}>
             <h2>Book a plant consultation</h2>
+
             <p>Get personal care advice from a GreenNest expert.</p>
-            <label>
+
+            <label htmlFor="customerName">
               Name
               <input
+                id="customerName"
+                type="text"
                 required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={customerName}
+                onChange={(event) => setCustomerName(event.target.value)}
               />
             </label>
-            <label>
+
+            <label htmlFor="customerEmail">
               Email
               <input
-                required
+                id="customerEmail"
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                required
+                value={customerEmail}
+                onChange={(event) => setCustomerEmail(event.target.value)}
               />
             </label>
-            <button className="btn btn-primary">Book now</button>
+
+            <button type="submit" className="btn btn-primary">
+              Book now
+            </button>
           </form>
         </div>
       </div>
-      {toast && <div className="toast">{toast}</div>}
+
+      {successMessage && <div className="toast">{successMessage}</div>}
     </div>
   );
-}
+};
+
 export default PlantDetails;
