@@ -1,0 +1,117 @@
+.profile-page {
+  padding-bottom: 90px;
+}
+.profile-card {
+  max-width: 850px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  overflow: hidden;
+  margin-top: 55px;
+  box-shadow: var(--shadow);
+}
+.profile-cover {
+  height: 155px;
+  background:
+    linear-gradient(120deg, #aec7a8, #315f46),
+    url("https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=1200&q=50")
+      center/cover;
+  background-blend-mode: multiply;
+}
+.profile-content {
+  padding: 0 50px 50px;
+}
+.profile-photo {
+  width: 135px;
+  height: 135px;
+  margin-top: -67px;
+  position: relative;
+}
+.profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 6px solid white;
+}
+.profile-photo span {
+  position: absolute;
+  right: 3px;
+  bottom: 9px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--forest);
+  color: white;
+}
+.profile-title h2 {
+  font:
+    500 2rem Georgia,
+    serif;
+  margin: 17px 0 4px;
+}
+.profile-title p {
+  color: var(--muted);
+  margin: 0;
+}
+.profile-info {
+  margin-top: 35px;
+  border-top: 1px solid var(--line);
+  padding-top: 25px;
+}
+.profile-info > div {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 0;
+}
+.profile-info > div > svg {
+  color: var(--leaf);
+}
+.profile-info span {
+  display: flex;
+  flex-direction: column;
+}
+.profile-info small {
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.profile-info .btn {
+  margin-top: 20px;
+}
+.profile-form {
+  margin-top: 30px;
+  border-top: 1px solid var(--line);
+  padding-top: 25px;
+}
+.profile-form label {
+  font-size: 0.82rem;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 16px;
+}
+.profile-form input {
+  width: 100%;
+  display: block;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin-top: 7px;
+}
+.profile-form > div {
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+}
+@media (max-width: 600px) {
+  .profile-content {
+    padding: 0 24px 35px;
+  }
+  .profile-photo {
+    width: 110px;
+    height: 110px;
+    margin-top: -55px;
+  }
+}

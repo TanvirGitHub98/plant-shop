@@ -1,0 +1,1 @@
+.loading{min-height:55vh;display:grid;place-content:center;text-align:center;color:var(--muted)}.loading span{margin:auto;width:42px;height:42px;border:3px solid var(--sage);border-top-color:var(--forest);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
